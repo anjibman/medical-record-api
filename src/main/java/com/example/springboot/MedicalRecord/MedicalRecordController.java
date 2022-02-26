@@ -2,6 +2,10 @@ package com.example.springboot.MedicalRecord;
 
 import java.util.List;
 
+import com.example.springboot.MedicalRecord.modal.MedicalRecord;
+import com.example.springboot.MedicalRecord.modal.Patient;
+import com.example.springboot.MedicalRecord.modal.VisitRecord;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +27,4 @@ public class MedicalRecordController {
     public MedicalRecord getPatientRecord(@PathVariable String id) {
         return medicalRecordHardcodedService.findById(id);
     }
-
-
 }

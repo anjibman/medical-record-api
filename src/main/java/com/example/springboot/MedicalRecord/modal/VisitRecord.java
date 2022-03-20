@@ -1,25 +1,15 @@
 package com.example.springboot.MedicalRecord.modal;
 
 public class VisitRecord {
-    private String id;
     private Long timeStamp;
     private String visitReport;
 
     public VisitRecord() {
     }
 
-    public VisitRecord(String id, Long timeStamp, String visitReport) {
-        this.id = id;
+    public VisitRecord(Long timeStamp, String visitReport) {
         this.timeStamp = timeStamp;
         this.visitReport = visitReport;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public Long getTimeStamp() {
@@ -40,7 +30,7 @@ public class VisitRecord {
 
     @Override
     public String toString() {
-        return "MedicalRecord [id=" + id + ", timeStamp=" + timeStamp + ", visitReport=" + visitReport + "]";
+        return "MedicalRecord [timeStamp=" + timeStamp + ", visitReport=" + visitReport + "]";
     }
 
     

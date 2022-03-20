@@ -1,6 +1,7 @@
 package com.example.springboot.MedicalRecord;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -23,23 +24,9 @@ public class MedicalRecordHardcodedService {
         patients.add(generatePatient());
     }
 
-
-    private static List<VisitRecord> allMedicalRecords = new ArrayList<>();
-
-    static {
-        allMedicalRecords.add(generateRandomMedicalRecord(patients.get(0).getId()));
-        allMedicalRecords.add(generateRandomMedicalRecord(patients.get(1).getId()));
-        allMedicalRecords.add(generateRandomMedicalRecord(patients.get(2).getId()));
-        allMedicalRecords.add(generateRandomMedicalRecord(patients.get(3).getId()));
-    }
-
     public List<MedicalRecord> findAll() {
         List<MedicalRecord> medicalRecords = patients.stream().map(p -> {
-            List<VisitRecord> visitRecords = 
-                allMedicalRecords
-                .stream()
-                .filter(r -> r.getId().equals(p.getId()))
-                .collect(Collectors.toList());
+            List<VisitRecord> visitRecords = Collections.singletonList(generateRandomMedicalRecord());
             
             return new MedicalRecord(p, visitRecords);
         }).collect(Collectors.toList());
@@ -49,11 +36,7 @@ public class MedicalRecordHardcodedService {
 
     public MedicalRecord findById(String id) {
         Patient patient = patients.stream().filter(p -> p.getId().equals(id)).findFirst().get();
-        List<VisitRecord> visitRecords = 
-            allMedicalRecords
-            .stream()
-            .filter(r -> r.getId().equals(id))
-            .collect(Collectors.toList());
+        List<VisitRecord> visitRecords = Collections.singletonList(generateRandomMedicalRecord());
 
         return new MedicalRecord(patient, visitRecords);        
     }
@@ -69,13 +52,13 @@ public class MedicalRecordHardcodedService {
         return new Patient(id, name, email, phoneNumber);
     }
 
-    private static VisitRecord generateRandomMedicalRecord(String patientID) {
+    private static VisitRecord generateRandomMedicalRecord() {
         Faker faker = new Faker();
 
         Long timestamp = faker.date().birthday().getTime();
         String visitLog = faker.lorem().sentence();        
 
-        return new VisitRecord(patientID, timestamp, visitLog);
+        return new VisitRecord(timestamp, visitLog);
     }
 
 }
